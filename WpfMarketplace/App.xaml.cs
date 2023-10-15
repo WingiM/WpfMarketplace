@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using WpfMarketplace.Data;
+using WpfMarketplace.Data.Enum;
 
 namespace WpfMarketplace
 {
@@ -13,5 +9,9 @@ namespace WpfMarketplace
     /// </summary>
     public partial class App : Application
     {
+        private static readonly MarketplaceContext _context = new MarketplaceContext();
+        public static MarketplaceContext Context => _context;
+
+        public static Roles AuthorizedUserRole { get; set; }
     }
 }
