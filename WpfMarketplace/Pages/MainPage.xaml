@@ -33,6 +33,13 @@
         <TextBlock Margin="20 0 0 0" x:Name="TitleTb" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Foreground="White">
             Заголовок
         </TextBlock>
+        <Button HorizontalAlignment="Right" Width="100" Height="30" Padding="0" x:Name="CreateProudctButton" Click="CreateProudctButton_Click">
+            <Button.Content>
+                <TextBlock FontSize="10">                    
+                    Создать товар
+                </TextBlock>
+            </Button.Content>
+        </Button>
         <Frame x:Name="pageMainFrame" Grid.Row="1" Grid.Column="1"></Frame>
     </Grid>
 </Page>

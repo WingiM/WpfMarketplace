@@ -13,6 +13,7 @@ namespace WpfMarketplace.Pages
         {
             InitializeComponent();
 
+            CreateProudctButton.Visibility = App.AuthorizedUserRole == Data.Enum.Roles.Administrator ? Visibility.Visible : Visibility.Hidden;
             pageMainFrame.Navigate(new ProductsPage());
             pageMainFrame.Navigated += PageMainFrame_Navigated;
         }
@@ -22,8 +23,11 @@ namespace WpfMarketplace.Pages
             var res = (e.Content as Page);
             if (res == null) return;
 
-            if (!pageMainFrame.NavigationService.CanGoBack) ButtonBack.Visibility = Visibility.Collapsed;
-            else ButtonBack.Visibility = Visibility.Visible;
+            if (res is ProductPage pp && pp.Title == "Создание товара") CreateProudctButton.Visibility = Visibility.Hidden;
+            else CreateProudctButton.Visibility = App.AuthorizedUserRole == Data.Enum.Roles.Administrator ? Visibility.Visible : Visibility.Hidden;
+
+            if (!pageMainFrame.NavigationService.CanGoBack) ButtonBack.IsEnabled = false;
+            else ButtonBack.IsEnabled = true;
             TitleTb.Text = res.Title;
         }
 
@@ -31,6 +35,11 @@ namespace WpfMarketplace.Pages
         {
             if (!pageMainFrame.NavigationService.CanGoBack) return;
             pageMainFrame.NavigationService.GoBack();
+        }
+
+        private void CreateProudctButton_Click(object sender, RoutedEventArgs e)
+        {
+            pageMainFrame.Navigate(new ProductPage());
         }
     }
 }
