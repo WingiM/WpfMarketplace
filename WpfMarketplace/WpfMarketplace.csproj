@@ -91,6 +91,7 @@
     <Compile Include="Data\Basket.cs">
       <DependentUpon>MarketplaceModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Enum\Roles.cs" />
     <Compile Include="Data\MarketplaceModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
