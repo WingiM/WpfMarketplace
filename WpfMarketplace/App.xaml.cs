@@ -13,5 +13,6 @@ namespace WpfMarketplace
         public static MarketplaceContext Context => _context;
 
         public static Roles AuthorizedUserRole { get; set; }
+        public static int AuthorizedUserId { get; set; }
     }
 }

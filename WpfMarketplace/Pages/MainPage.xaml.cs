@@ -13,7 +13,8 @@ namespace WpfMarketplace.Pages
         {
             InitializeComponent();
 
-            CreateProudctButton.Visibility = App.AuthorizedUserRole == Data.Enum.Roles.Administrator ? Visibility.Visible : Visibility.Hidden;
+            CreateProductButton.Visibility = App.AuthorizedUserRole == Data.Enum.Roles.Administrator ? Visibility.Visible : Visibility.Hidden;
+            BasketButton.Visibility = App.AuthorizedUserRole == Data.Enum.Roles.Client ? Visibility.Visible : Visibility.Hidden;
             pageMainFrame.Navigate(new ProductsPage());
             pageMainFrame.Navigated += PageMainFrame_Navigated;
         }
@@ -23,8 +24,14 @@ namespace WpfMarketplace.Pages
             var res = (e.Content as Page);
             if (res == null) return;
 
-            if (res is ProductPage pp && pp.Title == "Создание товара") CreateProudctButton.Visibility = Visibility.Hidden;
-            else CreateProudctButton.Visibility = App.AuthorizedUserRole == Data.Enum.Roles.Administrator ? Visibility.Visible : Visibility.Hidden;
+            if (res is ProductPage pp && pp.Title == "Создание товара") CreateProductButton.Visibility = Visibility.Hidden;
+            else CreateProductButton.Visibility = App.AuthorizedUserRole == Data.Enum.Roles.Administrator ? Visibility.Visible : Visibility.Hidden;
+
+            if (res is OrdersPage) OrdersButton.Visibility = Visibility.Hidden;
+            else OrdersButton.Visibility = Visibility.Visible;
+
+            if (res is BasketPage) BasketButton.Visibility = Visibility.Hidden;
+            else BasketButton.Visibility = App.AuthorizedUserRole == Data.Enum.Roles.Client ? Visibility.Visible : Visibility.Hidden;
 
             if (!pageMainFrame.NavigationService.CanGoBack) ButtonBack.IsEnabled = false;
             else ButtonBack.IsEnabled = true;
@@ -40,6 +47,16 @@ namespace WpfMarketplace.Pages
         private void CreateProudctButton_Click(object sender, RoutedEventArgs e)
         {
             pageMainFrame.Navigate(new ProductPage());
+        }
+
+        private void BasketButton_Click(object sender, RoutedEventArgs e)
+        {
+            pageMainFrame.Navigate(new BasketPage());
+        }
+
+        private void OrdersButton_Click(object sender, RoutedEventArgs e)
+        {
+            pageMainFrame.Navigate(new OrdersPage());
         }
     }
 }

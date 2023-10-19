@@ -1,0 +1,59 @@
+﻿<Page x:Class="WpfMarketplace.Pages.OrdersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfMarketplace.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Заказы"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid>
+        <ListView Grid.Row="1" x:Name="MainListView" MouseDoubleClick="ListViewItem_MouseDoubleClick" d:ItemsSource="{d:SampleData ItemCount=10}" ItemsSource="{Binding Orders}" ScrollViewer.CanContentScroll="False">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Background" Value="#04A0FF"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="Height" Value="100"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock VerticalAlignment="Center">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Заказ №{0} от {1}">
+                                            <Binding Path="Id"/>
+                                            <Binding Path="DateCreated"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Text="{Binding ActualStatus.OrderStatu.Name}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=OrderSum, StringFormat={}{0:F0} рублей}" VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

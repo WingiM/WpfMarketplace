@@ -17,29 +17,38 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Background="#EE6C4D" HorizontalAlignment="Stretch" Orientation="Horizontal">
-            <Button x:Name="ButtonBack" Click="ButtonBack_Click" Height="30" Width="50" Padding="0">
+            <Button x:Name="ButtonBack" Click="ButtonBack_Click" Height="40" Width="70" Padding="0">
                 <Button.Content>
-                    <TextBlock FontSize="10">
+                    <TextBlock>
                         Назад
                     </TextBlock>
                 </Button.Content>
             </Button>
+            <Button x:Name="OrdersButton" HorizontalAlignment="Center" Margin="5 0 0 0" Padding="0" Height="40" Content="Заказы" Click="OrdersButton_Click"/>
             <Label VerticalAlignment="Center" Foreground="White">
                 <TextBlock FontSize="24">
                     Маркетплейс
                 </TextBlock>
             </Label>
         </StackPanel>
-        <TextBlock Margin="20 0 0 0" x:Name="TitleTb" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Foreground="White">
+        <TextBlock Margin="20 0 0 0" x:Name="TitleTb" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Center" Foreground="White">
             Заголовок
         </TextBlock>
-        <Button HorizontalAlignment="Right" Width="100" Height="30" Padding="0" x:Name="CreateProudctButton" Click="CreateProudctButton_Click">
+        <Button HorizontalAlignment="Right" Width="150" Height="40" Padding="0" x:Name="CreateProductButton" Click="CreateProudctButton_Click">
             <Button.Content>
-                <TextBlock FontSize="10">                    
+                <TextBlock>                    
                     Создать товар
                 </TextBlock>
             </Button.Content>
         </Button>
+        <Button HorizontalAlignment="Right" Width="100" Height="40" Padding="0" x:Name="BasketButton" Click="BasketButton_Click">
+            <Button.Content>
+                <TextBlock>                    
+                    Корзина
+                </TextBlock>
+            </Button.Content>
+        </Button>
+
         <Frame x:Name="pageMainFrame" Grid.Row="1" Grid.Column="1"></Frame>
     </Grid>
 </Page>

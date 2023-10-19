@@ -34,6 +34,8 @@ namespace WpfMarketplace.Pages
                 MessageBox.Show("Неверный логин или пароль");
                 return;
             }
+            App.AuthorizedUserRole = (Roles)user.RoleId;
+            App.AuthorizedUserId = user.Id;
 
             while (NavigationService.CanGoBack)
             {
@@ -42,7 +44,6 @@ namespace WpfMarketplace.Pages
 
             NavigationService.Navigated += NavigationService_Navigated;
             NavigationService.Navigate(new MainPage());
-            App.AuthorizedUserRole = (Roles)user.RoleId;
         }
 
         private void NavigationService_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)

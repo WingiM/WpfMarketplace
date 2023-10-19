@@ -55,5 +55,12 @@
                 Удалить
             </Button>
         </StackPanel>
+        <Button Grid.Row="2" Grid.Column="1" Height="40" Width="180" Padding="0" Click="AddToCartButton_Click">
+            <Button.Content>
+                <TextBlock>
+                    Добавить в корзину
+                </TextBlock>
+            </Button.Content>
+        </Button>
     </Grid>
 </Page>

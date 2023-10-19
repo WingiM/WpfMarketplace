@@ -72,6 +72,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{Binding Image}"/>
@@ -81,6 +82,13 @@
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Grid.Column="1" Text="{Binding Path=Price, StringFormat={}{0:F0} рублей}" VerticalAlignment="Center"/>
+                        <Button Grid.Column="2" Visibility="{Binding RelativeSource={RelativeSource AncestorType=local:ProductsPage}, Path=DataContext.AddToCartButtonVisibility}" Background="LimeGreen" Width="120" Padding="0" Height="70" Tag="{Binding}" Click="AddToBasketButton_Click">
+                            <Button.Content>
+                                <TextBlock FontSize="14" TextWrapping="Wrap" TextAlignment="Center">
+                                    Добавить в корзину
+                                </TextBlock>
+                            </Button.Content>
+                        </Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

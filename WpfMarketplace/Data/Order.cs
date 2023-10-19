@@ -24,6 +24,7 @@ namespace WpfMarketplace.Data
         public int Id { get; set; }
         public int UserId { get; set; }
         public int PickupPointId { get; set; }
+        public System.DateTime DateCreated { get; set; }
     
         public virtual PickupPoint PickupPoint { get; set; }
         public virtual User User { get; set; }

@@ -1,0 +1,82 @@
+﻿<Page x:Class="WpfMarketplace.Pages.BasketPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfMarketplace.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Корзина"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid d:Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" x:Name="MainListView" MouseDoubleClick="ListViewItem_MouseDoubleClick" d:ItemsSource="{d:SampleData ItemCount=10}" ItemsSource="{Binding BasketEntries}" ScrollViewer.CanContentScroll="False">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Background" Value="#04A0FF"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="Height" Value="100"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Product.Image}"/>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Product.Name}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Product.ProductType.Name}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=Product.Price, StringFormat={}{0:F0} рублей}" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+                            <Button Tag="{Binding}" Background="IndianRed" Click="ReduceCountButton_Click">-</Button>
+                            <TextBlock Text="{Binding Count}"/>
+                            <Button Tag="{Binding}" Background="LimeGreen" Click="IncreaseCountButton_Click">+</Button>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <DockPanel Grid.Row="1">
+            <TextBlock x:Name="TotalTextBlock" Text="{Binding TotalPrice, StringFormat={}Итого: {0:F0} рублей}" VerticalAlignment="Center"/>
+            <StackPanel HorizontalAlignment="Right" Margin="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Пункт выдачи:" VerticalAlignment="Center"/>
+                    <ComboBox SelectedItem="{Binding SelectedPickupPoint}" ItemsSource="{Binding PickupPoints}" Width="240">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Address}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <Button HorizontalAlignment="Right" Height="40" Padding="0" Click="CreateOrderButton_Click">
+                    <Button.Content>
+                        Оформить заказ
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Page>

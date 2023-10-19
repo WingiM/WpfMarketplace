@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Navigation;
 using WpfMarketplace.Data;
+using WpfMarketplace.Services;
 
 namespace WpfMarketplace.Pages
 {
@@ -12,6 +14,8 @@ namespace WpfMarketplace.Pages
     /// </summary>
     public partial class ProductsPage : Page
     {
+        public Visibility AddToCartButtonVisibility { get; set; }
+
         private static readonly ProductType _allProductType = new ProductType() { Name = "Все" };
         public static string[] Sortings { get; set; } = new[] { "По возрастанию цены", "По убыванию цены", "По умолчанию" };
 
@@ -25,6 +29,7 @@ namespace WpfMarketplace.Pages
 
         public ProductsPage()
         {
+            AddToCartButtonVisibility = App.AuthorizedUserRole == Data.Enum.Roles.Client ? Visibility.Visible : Visibility.Hidden;
             var productTypes = App.Context.ProductTypes.ToArray();
             ProductTypes = productTypes.Concat(new[] { _allProductType }).ToArray();
             Loaded += ProductsPage_Loaded;
@@ -79,6 +84,13 @@ namespace WpfMarketplace.Pages
         private void ApplySearchButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             UpdateSource();
+        }
+
+        private void AddToBasketButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var product = (Product)((Button)sender).Tag;
+            var res = BasketService.AddProductToBasket(App.AuthorizedUserId, product.Id);
+            MessageBox.Show($"Товар добавлен в корзину. Текущее количество: {res}", "Успешно", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

@@ -12,6 +12,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -20,6 +21,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="PickupPointId" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderProduct">
           <Key>
@@ -29,6 +31,7 @@
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="SavedPrice" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderStatus">
           <Key>
@@ -275,6 +278,7 @@
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK__Basket__ProductI__4316F928" FromRole="Basket" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="Self.FK__Basket__UserId__4222D4EF" FromRole="Basket" ToRole="User" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -287,6 +291,7 @@
           <NavigationProperty Name="User" Relationship="Self.FK__Order__UserId__49C3F6B7" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="OrderProducts" Relationship="Self.FK__OrderProd__Order__5165187F" FromRole="Order" ToRole="OrderProduct" />
           <NavigationProperty Name="OrderStatusHistories" Relationship="Self.FK__OrderStat__Order__4D94879B" FromRole="Order" ToRole="OrderStatusHistory" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="OrderProduct">
           <Key>
@@ -298,6 +303,7 @@
           <Property Name="SavedPrice" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="Self.FK__OrderProd__Order__5165187F" FromRole="OrderProduct" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="Self.FK__OrderProd__Produ__52593CB8" FromRole="OrderProduct" ToRole="Product" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderStatu">
           <Key>
@@ -552,6 +558,7 @@
           <EntitySetMapping Name="Baskets">
             <EntityTypeMapping TypeName="MarketplaceModel.Basket">
               <MappingFragment StoreEntitySet="Basket">
+                <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -561,6 +568,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="MarketplaceModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="PickupPointId" ColumnName="PickupPointId" />
@@ -570,6 +578,7 @@
           <EntitySetMapping Name="OrderProducts">
             <EntityTypeMapping TypeName="MarketplaceModel.OrderProduct">
               <MappingFragment StoreEntitySet="OrderProduct">
+                <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
