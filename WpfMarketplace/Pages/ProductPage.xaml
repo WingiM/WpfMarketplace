@@ -40,13 +40,20 @@
             <TextBlock>Описание:</TextBlock>
             <TextBox IsReadOnly="{Binding IsReadonly}" Text="{Binding Product.Description}" TextWrapping="WrapWithOverflow" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="150"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock HorizontalAlignment="Center">Изображение:</TextBlock>
-            <Border Width="200" Height="200" BorderThickness="1" BorderBrush="Black">
-                <Image x:Name="MainImage" Source="{Binding Product.Image, FallbackValue={StaticResource FallbackImage}, TargetNullValue={StaticResource FallbackImage}}"/>
-            </Border>
-            <Button Visibility="{Binding AdminButtonsVisibility}" Content="Выбрать" Height="40" Width="120" Padding="0" Margin="10" Click="SelectImageButton_Click"/>
-        </StackPanel>
+        <Grid  Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center">Изображение:</TextBlock>
+                <Border Width="200" Height="200" BorderThickness="1" BorderBrush="Black">
+                    <Image x:Name="MainImage" Source="{Binding Product.Image, FallbackValue={StaticResource FallbackImage}, TargetNullValue={StaticResource FallbackImage}}"/>
+                </Border>
+                <Button Visibility="{Binding AdminButtonsVisibility}" Content="Выбрать" Height="40" Width="120" Padding="0" Margin="10" Click="SelectImageButton_Click"/>
+            </StackPanel>
+            <Image Grid.Row="1" x:Name="QRCodeImage"/>
+        </Grid>
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Width="100" Height="40" Padding="0" Click="SaveButton_Click" Visibility="{Binding AdminButtonsVisibility}">
                 Сохранить

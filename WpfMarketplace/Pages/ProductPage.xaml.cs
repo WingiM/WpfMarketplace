@@ -1,4 +1,6 @@
 ﻿using Microsoft.Win32;
+using QRCoder;
+using System.Drawing;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
@@ -11,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using WpfMarketplace.Data;
 using WpfMarketplace.Services;
+using System.Drawing.Imaging;
 
 namespace WpfMarketplace.Pages
 {
@@ -41,8 +44,27 @@ namespace WpfMarketplace.Pages
             }
             _isReadonly = App.AuthorizedUserRole == Data.Enum.Roles.Client;
             ProductTypes = App.Context.ProductTypes.ToArray();
+            Unloaded += ProductPage_Unloaded;
             InitializeComponent();
+            if (productId != null)
+            {
+                var generator = new QRCodeGenerator();
+                var data = generator.CreateQrCode($"https://www.wildberries.ru/catalog/0/search.aspx?search={string.Join("", Product.Name.Split())}", QRCodeGenerator.ECCLevel.L);
+                var qrCode = new QRCode(data);
+                var pic = qrCode.GetGraphic(100);
+                using (var ms = new MemoryStream())
+                {
+                    pic.Save(ms, ImageFormat.Png);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    QRCodeImage.Source = GenerateImageSource(ms);
+                }
+            }
             Title = productId == null ? "Создание товара" : "Товар";
+        }
+
+        private void ProductPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            App.Context.Entry(Product).Reload();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -98,7 +120,7 @@ namespace WpfMarketplace.Pages
             var window = new OpenFileDialog();
             if (window.ShowDialog() == true)
             {
-                MemoryStream ms = new MemoryStream();
+                using (MemoryStream ms = new MemoryStream())
                 using (Stream fileStream = window.OpenFile())
                 {
                     fileStream.CopyTo(ms);
@@ -113,6 +135,7 @@ namespace WpfMarketplace.Pages
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.StreamSource = file;
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
             bitmap.EndInit();
             return bitmap;
         }
