@@ -64,7 +64,10 @@ namespace WpfMarketplace.Pages
 
         private void ProductPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            App.Context.Entry(Product).Reload();
+            if (Product.Id != 0)
+            {
+                App.Context.Entry(Product).Reload();
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
